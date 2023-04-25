@@ -14,6 +14,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+
+Route::group(['middleware'=>'api',
+              'prefix'=>'v1'
+],function($router){
+
+
+    Route:: post("admin-signup","App\Http\Controllers\AdminController@adminSignUp");
+
 });
