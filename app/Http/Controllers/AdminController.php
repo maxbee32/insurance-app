@@ -28,7 +28,6 @@ class AdminController extends Controller
 
         $validator = Validator::make($request-> all(),[
             'email' => ['bail','required','string','email:rfc,filter,dns','unique:admins'],
-            'username'=>['required','string','unique:admins'],
             'password'=> ['required','string',
             Password::min(8)->mixedCase()->numbers()->symbols()->uncompromised(),'confirmed'],
 
