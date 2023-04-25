@@ -23,6 +23,9 @@ Route::group(['middleware'=>'api',
 ],function($router){
 
 
-    Route:: post("admin-signup","App\Http\Controllers\AdminController@adminSignUp");
+    Route::post("admin-signup","App\Http\Controllers\AdminController@adminSignUp");
+
+    Route::post("admin-login", "App\Http\Controllers\AdminController@adminLogin");
+
 
 });
