@@ -95,7 +95,7 @@ public function adminLogin(Request $request){
 
 
 
-  //register branch users
+  //register  users
     public function managerSignup(Request $request){
         $validator = Validator::make($request->all(), [
 
@@ -121,7 +121,7 @@ public function adminLogin(Request $request){
 
 
 
-                if(!$token = auth()->attempt($validator->validated())){
+                if(!$token = auth()->guard('api')->attempt($validator->validated())){
                     return $this->sendResponse([
                         'success' => false,
                         'data'=> $validator->errors(),
@@ -136,7 +136,7 @@ public function adminLogin(Request $request){
                     'access_token' => $token,
                     'token_type' => 'bearer',
                     'expires_in' => config('jwt.ttl') * 60,//auth()->factory()->getTTL()* 60,
-                     'user'=>auth()->user(),
+                     'user'=>auth()->guard('api')->user(),
                     'message' => "manager account created successfully"
                 ],200);
 

@@ -33,14 +33,14 @@ Route::group(['middleware'=>'api',
 });
 
 
-Route::group(['middleware'=>'api',
-              'prefix'=>'v1'
-],function($router){
+// Route::group(['middleware'=>'api',
+//               'prefix'=>'v1'
+// ],function($router){
 
 
-    // Route::post("manager-signup","App\Http\Controllers\UserController@managerSignUp");
+//     // Route::post("manager-signup","App\Http\Controllers\UserController@managerSignUp");
 
 
 
 
-});
+// });
