@@ -29,3 +29,16 @@ Route::group(['middleware'=>'api',
 
 
 });
+
+
+Route::group(['middleware'=>'api',
+              'prefix'=>'manager/v1'
+],function($router){
+
+
+    Route::post("manager-signup","App\Http\Controllers\UserController@managerSignUp");
+
+   
+
+
+});

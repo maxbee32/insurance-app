@@ -19,7 +19,7 @@ class AdminController extends Controller
      }
 
     public function __construct(){
-        $this->middleware('auth:api', ['except'=>['adminSignUp','adminLogin']]);
+        $this->middleware('auth:api', ['except'=>['adminSignUp','adminLogin','managerSignup']]);
     }
 
 
