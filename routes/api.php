@@ -27,18 +27,20 @@ Route::group(['middleware'=>'api',
 
     Route::post("admin-login", "App\Http\Controllers\AdminController@adminLogin");
 
+    Route::post("manager-signup","App\Http\Controllers\AdminController@managerSignUp");
+
 
 });
 
 
 Route::group(['middleware'=>'api',
-              'prefix'=>'manager/v1'
+              'prefix'=>'v1'
 ],function($router){
 
 
-    Route::post("manager-signup","App\Http\Controllers\UserController@managerSignUp");
+    // Route::post("manager-signup","App\Http\Controllers\UserController@managerSignUp");
 
-   
+
 
 
 });
