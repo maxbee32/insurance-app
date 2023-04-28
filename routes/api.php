@@ -40,6 +40,8 @@ Route::group(['middleware'=>'api',
 
      Route::post("manager-login","App\Http\Controllers\UserController@managerLogin");
 
+     Route::post("register-insurer","App\Http\Controllers\InsuranceController@captureInsurance");
+
 
 
 
