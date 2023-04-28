@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -90,6 +91,58 @@ public function adminLogin(Request $request){
     }
 
      return $this-> createNewToken($token);
+}
+
+
+
+  //register branch users
+    public function managerSignup(Request $request){
+        $validator = Validator::make($request->all(), [
+
+            'email' => ['required','email','unique:users'],
+            'password'=> ['required','string',
+            Password::min(8)->mixedCase()->numbers()->symbols()->uncompromised(),'confirmed'],
+
+
+        ]);
+
+        if($validator->stopOnFirstFailure()-> fails()){
+            return $this->sendResponse([
+                'success' => false,
+                'data'=> $validator->errors(),
+                'message' => 'Validation Error'
+            ], 400);
+
+        }
+           User::create(array_merge(
+                    $validator-> validated(),
+                    ['password'=>bcrypt($request->password)]
+                ));
+
+
+
+                if(!$token = auth()->attempt($validator->validated())){
+                    return $this->sendResponse([
+                        'success' => false,
+                        'data'=> $validator->errors(),
+                        'message' => 'Invalid login credentials'
+                    ], 400);
+
+
+                }
+
+
+                return response()->json([
+                    'access_token' => $token,
+                    'token_type' => 'bearer',
+                    'expires_in' => config('jwt.ttl') * 60,//auth()->factory()->getTTL()* 60,
+                     'user'=>auth()->user(),
+                    'message' => "manager account created successfully"
+                ],200);
+
+
+
+
 }
 
 
