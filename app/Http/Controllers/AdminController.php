@@ -19,7 +19,7 @@ class AdminController extends Controller
      }
 
     public function __construct(){
-        $this->middleware('auth:api', ['except'=>['adminSignUp','adminLogin','managerSignup']]);
+        $this->middleware('auth:api', ['except'=>['adminSignUp','adminLogin','userSignUp']]);
     }
 
 
@@ -96,7 +96,9 @@ public function adminLogin(Request $request){
 
 
   //register  users
-    public function managerSignup(Request $request){
+    public function userSignUp(Request $request){
+
+
         $validator = Validator::make($request->all(), [
 
             'email' => ['required','email','unique:users'],
