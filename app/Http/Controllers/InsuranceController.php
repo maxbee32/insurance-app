@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Insurance;
+use App\Models\VehicleDefects;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -17,7 +18,7 @@ class InsuranceController extends Controller
      }
 
     public function __construct(){
-        $this->middleware('auth:api', ['except'=>['captureInsurance']]);
+        $this->middleware('auth:api', ['except'=>['captureInsurance','caputureVihecleDefects']]);
     }
     //
     public function captureInsurance(Request $request){
@@ -56,13 +57,39 @@ class InsuranceController extends Controller
            ],200);
      }
 
-//      public function createNewToken1($regtoken){
-//         return response()->json([
-//             'access_token' => $regtoken,
-//             'token_type' => 'bearer',
-//             'expires_in' => config('jwt.ttl') * 60,
-//             'user'=>auth()->user(),
-//             'message'=>'Insurer registered successfully.'
-//         ]);
-//     }
+
+
+
+   public function caputureVihecleDefects(Request $request){
+    $validator = Validator::make($request->all(), [
+        'vehicle_registration_number'=>['required','string'],
+        'vehicle_make'=>['required','string'],
+        'contact_number'=>['required','string'],
+        'vehicle_number'=>['required','string'],
+        'vehicle_type'=>['required','string'],
+        'use_of_vehicle'=>['required','string'],
+    ]);
+
+
+    if($validator->stopOnFirstFailure()-> fails()){
+        return $this->sendResponse([
+            'success' => false,
+            'data'=> $validator->errors(),
+            'message' => 'Validation Error'
+        ], 400);
+    }
+
+    VehicleDefects::create(array_merge(
+        $validator-> validated(),
+
+    ));
+
+    return $this ->sendResponse([
+        'success' => true,
+         'message' =>'Vehicle Defects registered successfully.'
+
+       ],200);
  }
+
+  }
+

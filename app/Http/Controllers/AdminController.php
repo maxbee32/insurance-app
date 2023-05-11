@@ -148,6 +148,8 @@ public function adminLogin(Request $request){
 }
 
 
+
+
 public function createNewToken1($token){
     return response()->json([
         // 'success'=>'true',
@@ -168,4 +170,7 @@ public function createNewToken($token){
         'message'=>'Logged in successfully.'
     ]);
 }
+
+
+
 }
