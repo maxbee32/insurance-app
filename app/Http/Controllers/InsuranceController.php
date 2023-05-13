@@ -13,6 +13,7 @@ use Haruncpi\LaravelIdGenerator\IdGenerator;
 
 class InsuranceController extends Controller
 {
+
     public function sendResponse($data, $message, $status = 200){
         $response =[
             'data' => $data,
@@ -28,7 +29,7 @@ class InsuranceController extends Controller
     public function captureInsurance(Request $request){
         $validator = Validator::make($request->all(), [
             'insurance_company'=> ['required','string'],
-            'firstname' => ['required','string'],
+            'surname' => ['required','string'],
             'othername' => ['required','string'],
             'gender'=>['required','string'],
             'dob'=>['required'],
@@ -42,9 +43,9 @@ class InsuranceController extends Controller
             'vehicle_no_doors'=>['required'],
             'vehicle_transmission'=>['required'],
             'vehicle_engine_type'=>['required'],
-            'vehicle_identification_number'=>['required'],
-            'record_of_past_ownership'=>['required'],
-            'vehicle_chassis_number'=>['required'],
+            'vehicle_identification_number'=>['nullable','string'],
+            'record_of_past_ownership'=>['required','string'],
+            'vehicle_chassis_number'=>['required','string'],
             'phone_number'=>['required'],
             'vehicle_number' => ['required','string'],
             'vehicle_type' => ['required','string'],
@@ -67,15 +68,19 @@ class InsuranceController extends Controller
 
         $Id =IdGenerator::generate(['table'=>'insurances','field'=>'registrationId','length'=>10,'prefix'=>'RGHA-']);
 
-        Insurance::create(array_merge(
+       $insurance= Insurance::create(array_merge(
             ['registrationId'=>$Id],
             $validator-> validated(),
 
         ));
 
+        $token = $insurance->createToken('authToken')->plainTextToken;
+
 
         return $this ->sendResponse([
             'success' => true,
+            'access_token' =>$token,
+            'token_type'=>'bearer',
              'message' =>'Insurer registered successfully.'
 
            ],200);
