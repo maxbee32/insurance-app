@@ -23,7 +23,7 @@ class InsuranceController extends Controller
      }
 
     public function __construct(){
-        $this->middleware('auth:api', ['except'=>['captureInsurance','caputureVihecleDefects']]);
+        $this->middleware('auth:api', ['except'=>['captureInsurance','searchInsurer','caputureVihecleDefects']]);
     }
     //
     public function captureInsurance(Request $request){
@@ -86,6 +86,30 @@ class InsuranceController extends Controller
            ],200);
      }
 
+     public function searchInsurer($name){
+        $result = Insurance::where('surname', 'LIKE', '%'. $name . '%')
+        ->orWhere('othername','LIKE','%'.$name.'%')
+        ->orWhere('vehicle_number','LIKE','%'.$name.'%')
+        ->get(array('registrationId','surname','othername',
+        'vehicle_number','expiring_date','vehicle_chassis_number','vehicle_model'));
+
+        if (count($result)){
+            return $this ->sendResponse([
+                'success' => true,
+                'data'=>$result,
+                 'message' =>'Insurer found.'
+
+               ],200);
+        }
+        else {
+            return $this ->sendResponse([
+                'success' => false,
+                 'message' =>'No Data found.'
+
+               ],200);
+        }
+
+     }
 
 
 

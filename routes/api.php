@@ -44,7 +44,7 @@ Route::group(['middleware'=>'api',
 
      Route::post("register-defects","App\Http\Controllers\InsuranceController@caputureVihecleDefects");
 
-
+     Route::post("search/{name}","App\Http\Controllers\InsuranceController@searchInsurer");
 
 
  });
