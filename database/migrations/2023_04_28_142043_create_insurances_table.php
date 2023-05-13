@@ -13,8 +13,10 @@ return new class extends Migration
     {
         Schema::create('insurances', function (Blueprint $table) {
             $table->id();
+            $table->string('registrationId');
             $table->string('insurance_company');
-            $table->string('name_of_insurer');
+            $table->string('firstname');
+            $table->string('othername');
             $table->string('gender');
             $table->date('dob');
             $table->string('phone_number');
@@ -37,8 +39,10 @@ return new class extends Migration
             $table->string('cover_type');
             $table->date('inception_date');
             $table->date('expiring_date');
-            $table->string('premium');
+            // $table->string('premium');
             $table->timestamps();
+
+
         });
     }
 

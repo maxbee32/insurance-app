@@ -5,13 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Insurance extends Model
+class Insurance extends Model 
 {
     use HasFactory;
 
     protected $fillable= [
         'insurance_company',
-        'name_of_insurer',
+        'registrationId',
+        'firstname',
+        'othername',
         'gender',
         'dob',
         'phone_number',
@@ -34,7 +36,7 @@ class Insurance extends Model
         'cover_type',
         'inception_date',
         'expiring_date',
-        'premium',
+        // 'premium',
     ];
 
 

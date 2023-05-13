@@ -51,6 +51,7 @@ return [
                 'provider' => 'admins',
             ],
 
+
     ],
 
     /*
@@ -79,7 +80,6 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\Admin::class,
         ],
-
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
@@ -115,6 +115,12 @@ return [
 
         'admins' => [
             'provider' => 'admins',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'insurances' => [
+            'provider' => 'insurances',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,
