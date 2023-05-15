@@ -21,7 +21,7 @@ class InsuranceController extends Controller
      }
 
     public function __construct(){
-        $this->middleware('auth:sanctum',['except'=>['captureInsurance','searchInsurer','caputureVihecleDefects']]);
+        $this->middleware('auth:api',['except'=>['captureInsurance','searchInsurer','caputureVihecleDefects']]);
     }
     //
        public function captureInsurance(Request $request){
@@ -68,10 +68,9 @@ class InsuranceController extends Controller
 
        $insurance = Insurance::create(array_merge(
             ['registrationId'=>$Id],
-            $validator-> validated()
+            $validator-> validated()));
 
-        ));
-
+        echo($insurance);
         $token = $insurance->createToken('token')->plainTextToken;
 
 
