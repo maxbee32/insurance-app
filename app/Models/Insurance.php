@@ -37,8 +37,7 @@ class Insurance extends Model
         'use_of_vehicle',
         'cover_type',
         'inception_date',
-        'expiring_date'
-        // 'premium',
+        'expiring_date',
     ];
 
 
