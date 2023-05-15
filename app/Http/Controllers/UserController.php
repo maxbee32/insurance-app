@@ -73,26 +73,35 @@ class UserController extends Controller
            'othername' => ['required','string'],
            'gender'=>['required','string'],
            'dob'=>['required'],
-           'vehicle_model'=>['required','string'],
-           'vehicle_make'=>['required','string'],
-           'vehicle_color'=>['required','string'],
-           'vehicle_fuel_type'=>['required','string'],
-           'vehicle_mileage'=>['required','string'],
-           'vehicle_registered_date'=>['required'],
-           'vehicle_no_seat'=>['required'],
-           'vehicle_no_doors'=>['required'],
-           'vehicle_transmission'=>['required'],
-           'vehicle_engine_type'=>['required'],
-           'vehicle_identification_number'=>['nullable','string'],
-           'record_of_past_ownership'=>['required','string'],
-           'vehicle_chassis_number'=>['required','string'],
+        //    'vehicle_model'=>['required','string'],
+        //    'vehicle_make'=>['required','string'],
+        //    'vehicle_color'=>['required','string'],
+        //    'vehicle_fuel_type'=>['required','string'],
+        //    'vehicle_mileage'=>['required','string'],
+        //    'vehicle_registered_date'=>['required'],
+        //    'vehicle_no_seat'=>['required'],
+        //    'vehicle_no_doors'=>['required'],
+        //    'vehicle_transmission'=>['required'],
+        //    'vehicle_engine_type'=>['required'],
+        //    'vehicle_identification_number'=>['nullable','string'],
+        //    'record_of_past_ownership'=>['required','string'],
+        //    'vehicle_chassis_number'=>['required','string'],
            'phone_number'=>['required'],
-           'vehicle_number' => ['required','string'],
-           'vehicle_type' => ['required','string'],
-           'use_of_vehicle' => ['required','string'],
-           'cover_type' => ['required','string'],
-           'inception_date' => ['required'],
-           'expiring_date' => ['required']
+        //    'vehicle_number' => ['required','string'],
+        //    'vehicle_type' => ['required','string'],
+        //    'use_of_vehicle' => ['required','string'],
+        //    'cover_type' => ['required','string'],
+        //    'inception_date' => ['required'],
+        //    'expiring_date' => ['required']
+
+
+
+        //    $table->string('insurance_company');
+        //    $table->string('surname');
+        //    $table->string('othername');
+        //    $table->string('gender');
+        //    $table->date('dob');
+        //    $table->string('phone_number');
 
 
 
