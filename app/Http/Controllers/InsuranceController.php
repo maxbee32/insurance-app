@@ -93,6 +93,8 @@ class InsuranceController extends Controller
         ->get(array('registrationId','surname','othername',
         'vehicle_number','expiring_date','vehicle_chassis_number','vehicle_model'));
 
+
+
         if (count($result)){
             return $this ->sendResponse([
                 'success' => true,
