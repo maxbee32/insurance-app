@@ -21,7 +21,7 @@ class InsuranceController extends Controller
      }
 
     public function __construct(){
-        $this->middleware('auth:api', ['except'=>['captureInsurance','searchInsurer','caputureVihecleDefects']]);
+        $this->middleware('auth:sanctum',['except'=>['captureInsurance','searchInsurer','caputureVihecleDefects']]);
     }
     //
        public function captureInsurance(Request $request){
@@ -56,7 +56,7 @@ class InsuranceController extends Controller
 
         ]);
 
-        if($validator->stopOnFirstFailure()-> fails()){
+        if($validator->stopOnFirstFailure()->fails()){
             return $this->sendResponse([
                 'success' => false,
                 'data'=> $validator->errors(),
