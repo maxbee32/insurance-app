@@ -39,7 +39,6 @@ return new class extends Migration
             $table->string('cover_type');
             $table->date('inception_date');
             $table->date('expiring_date');
-          
             $table->timestamps();
 
 

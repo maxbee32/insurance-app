@@ -70,7 +70,6 @@ class InsuranceController extends Controller
             ['registrationId'=>$Id],
             $validator-> validated()));
 
-        echo($insurance);
         $token = $insurance->createToken('token')->plainTextToken;
 
 

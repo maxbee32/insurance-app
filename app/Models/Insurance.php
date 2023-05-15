@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Insurance extends Model
 {
-    use HasFactory, HasApiTokens;
+    use  HasApiTokens;
 
 
     protected $fillable= [
@@ -41,8 +41,8 @@ class Insurance extends Model
     ];
 
 
-    public function user()
-    {
-        return $this->belongsTo('App\User');
-    }
+    // public function user()
+    // {
+    //     return $this->belongsTo('App\User');
+    // }
 }
