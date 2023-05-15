@@ -2,14 +2,12 @@
 
 namespace App\Models;
 
-use Laravel\Sanctum\HasApiTokens;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
-class Insurance extends Model
+class InsuranceParty extends Model
 {
-    use  HasApiTokens;
-
+    use HasFactory;
 
     protected $fillable= [
         'insurance_company',
@@ -40,9 +38,4 @@ class Insurance extends Model
         'expiring_date',
     ];
 
-
-    public function user()
-    {
-        return $this->belongsTo('App\User');
-    }
 }
