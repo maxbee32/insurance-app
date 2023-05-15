@@ -6,9 +6,7 @@ use App\Models\Insurance;
 use App\Models\RoadWorth;
 use Illuminate\Http\Request;
 use App\Models\VehicleDefects;
-use Tymon\JWTAuth\Facades\JWTAuth;
 use Illuminate\Support\Facades\Validator;
-use Tymon\JWTAuth\Exceptions\JWTException;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 
 class InsuranceController extends Controller
@@ -68,19 +66,19 @@ class InsuranceController extends Controller
 
         $Id =IdGenerator::generate(['table'=>'insurances','field'=>'registrationId','length'=>10,'prefix'=>'RGHA-']);
 
-       $insurance= Insurance::create(array_merge(
+       $insurance = Insurance::create(array_merge(
             ['registrationId'=>$Id],
-            $validator-> validated(),
+            $validator-> validated()
 
         ));
 
-        // $token = $insurance->createToken('authToken')->plainTextToken;
+        $token = $insurance->createToken('token')->plainTextToken;
 
 
         return $this ->sendResponse([
             'success' => true,
-            // 'access_token' =>$token,
-            // 'token_type'=>'bearer',
+            'access_token' =>$token,
+            'token_type'=>'bearer',
              'message' =>'Insurer registered successfully.'
 
            ],200);
