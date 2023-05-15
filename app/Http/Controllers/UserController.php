@@ -6,6 +6,7 @@ use App\Models\Insurance;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules\Password;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
 
 class UserController extends Controller
 {
@@ -21,7 +22,7 @@ class UserController extends Controller
      }
 
     public function __construct(){
-        $this->middleware('auth:api', ['except'=>['managerLogin',]]);
+        $this->middleware('auth:api', ['except'=>['managerLogin','captureInsurance']]);
     }
 
     public function managerLogin(Request $request){
@@ -51,6 +52,68 @@ class UserController extends Controller
 
          return $this-> createNewToken($token);
     }
+
+
+    public function captureInsurance(Request $request){
+        $validator = Validator::make($request->all(), [
+            'insurance_company'=> ['required','string'],
+            'surname' => ['required','string'],
+            'othername' => ['required','string'],
+            'gender'=>['required','string'],
+            'dob'=>['required'],
+            'vehicle_model'=>['required','string'],
+            'vehicle_make'=>['required','string'],
+            'vehicle_color'=>['required','string'],
+            'vehicle_fuel_type'=>['required','string'],
+            'vehicle_mileage'=>['required','string'],
+            'vehicle_registered_date'=>['required'],
+            'vehicle_no_seat'=>['required'],
+            'vehicle_no_doors'=>['required'],
+            'vehicle_transmission'=>['required'],
+            'vehicle_engine_type'=>['required'],
+            'vehicle_identification_number'=>['nullable','string'],
+            'record_of_past_ownership'=>['required','string'],
+            'vehicle_chassis_number'=>['required','string'],
+            'phone_number'=>['required'],
+            'vehicle_number' => ['required','string'],
+            'vehicle_type' => ['required','string'],
+            'use_of_vehicle' => ['required','string'],
+            'cover_type' => ['required','string'],
+            'inception_date' => ['required',],
+            'expiring_date' => ['required',]
+            // 'premium' => ['required','string'],
+
+
+        ]);
+
+        if($validator->stopOnFirstFailure()-> fails()){
+            return $this->sendResponse([
+                'success' => false,
+                'data'=> $validator->errors(),
+                'message' => 'Validation Error'
+            ], 400);
+        }
+
+        $Id =IdGenerator::generate(['table'=>'insurances','field'=>'registrationId','length'=>10,'prefix'=>'RGHA-']);
+
+       $insurance= Insurance::create(array_merge(
+            ['registrationId'=>$Id],
+            $validator-> validated(),
+
+        ));
+
+        $token = $insurance->createToken('authToken')->plainTextToken;
+
+
+        return $this ->sendResponse([
+            'success' => true,
+            'access_token' =>$token,
+            'token_type'=>'bearer',
+             'message' =>'Insurer registered successfully.'
+
+           ],200);
+     }
+
 
     public function createNewToken($token){
         return response()->json([
