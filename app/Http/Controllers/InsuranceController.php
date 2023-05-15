@@ -26,10 +26,8 @@ class InsuranceController extends Controller
         $this->middleware('auth:api', ['except'=>['captureInsurance','searchInsurer','caputureVihecleDefects']]);
     }
     //
-
-
-    public function captureInsurance(Request $request){
-        $validator = Validator::make($request->all(), [
+       public function captureInsurance(Request $request){
+         $validator = Validator::make($request->all(),[
             'insurance_company'=> ['required','string'],
             'surname' => ['required','string'],
             'othername' => ['required','string'],
@@ -55,7 +53,7 @@ class InsuranceController extends Controller
             'cover_type' => ['required','string'],
             'inception_date' => ['required'],
             'expiring_date' => ['required']
-            // 'premium' => ['required','string'],
+
 
 
         ]);
@@ -76,13 +74,13 @@ class InsuranceController extends Controller
 
         ));
 
-        $token = $insurance->createToken('authToken')->plainTextToken;
+        // $token = $insurance->createToken('authToken')->plainTextToken;
 
 
         return $this ->sendResponse([
             'success' => true,
-            'access_token' =>$token,
-            'token_type'=>'bearer',
+            // 'access_token' =>$token,
+            // 'token_type'=>'bearer',
              'message' =>'Insurer registered successfully.'
 
            ],200);
