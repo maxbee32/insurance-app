@@ -40,8 +40,6 @@ Route::group(['middleware'=>'api',
 
      Route::post("manager-login","App\Http\Controllers\UserController@managerLogin");
 
-     Route::post("register-insure","App\Http\Controllers\UserController@captureInsurer");
-
      Route::post("register-insurer","App\Http\Controllers\InsuranceController@captureInsurance");
 
      Route::post("register-defects","App\Http\Controllers\InsuranceController@caputureVihecleDefects");
@@ -50,3 +48,6 @@ Route::group(['middleware'=>'api',
 
 
  });
+
+
+
