@@ -71,12 +71,12 @@ class InsuranceController extends Controller
             $validator-> validated()));
 
         $token = $insurance->createToken('token')->plainTextToken;
-    echo($insurance);
+    
 
         return $this ->sendResponse([
             'success' => true,
-            // 'access_token' =>$token,
-            // 'token_type'=>'bearer',
+            'access_token' =>$token,
+            'token_type'=>'bearer',
              'message' =>'Insurer registered successfully.'
 
            ],200);
