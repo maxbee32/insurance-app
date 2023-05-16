@@ -21,7 +21,7 @@ class InsuranceController extends Controller
      }
 
     public function __construct(){
-        $this->middleware('auth:sanctum',['except'=>['captureInsurance','searchInsurer','caputureVihecleDefects']]);
+        $this->middleware('auth:api',['except'=>['captureInsurance','searchInsurer','caputureVihecleDefects']]);
     }
     //
        public function captureInsurance(Request $request){
@@ -66,17 +66,18 @@ class InsuranceController extends Controller
 
         $Id =IdGenerator::generate(['table'=>'insurances','field'=>'registrationId','length'=>10,'prefix'=>'RGHA-']);
 
-       $insurance = Insurance::create(array_merge(
+    //    $insurance =
+       Insurance::create(array_merge(
             ['registrationId'=>$Id],
             $validator-> validated()));
 
-        $token = $insurance->createToken('token')->plainTextToken;
+        // $token = $insurance->createToken('token')->plainTextToken;
 
 
         return $this ->sendResponse([
             'success' => true,
-            'access_token' =>$token,
-            'token_type'=>'bearer',
+            // 'access_token' =>$token,
+            // 'token_type'=>'bearer',
              'message' =>'Insurer registered successfully.'
 
            ],200);

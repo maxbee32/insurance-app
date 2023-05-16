@@ -50,7 +50,7 @@ Route::group(['middleware'=>'api',
  });
 
 
- Route::group(['middleware'=>['auth:sanctum'],
+ Route::group(['middleware'=>'api',
               'prefix'=>'user/v1'
 ],function($router){
 
