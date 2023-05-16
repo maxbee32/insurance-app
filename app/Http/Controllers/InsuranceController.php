@@ -6,6 +6,7 @@ use App\Models\Insurance;
 use App\Models\RoadWorth;
 use Illuminate\Http\Request;
 use App\Models\VehicleDefects;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 
@@ -85,11 +86,37 @@ class InsuranceController extends Controller
 
 
 
-     public function searchInsurer($name){
-        $result = Insurance::where('surname', 'LIKE', '%'. $name . '%')
-        ->orWhere('othername','LIKE','%'.$name.'%')
-        ->orWhere('vehicle_number','LIKE','%'.$name.'%')
-        ->get();
+     public function searchInsurer(){
+        $result = DB::table('insurances')
+        ->get(array(
+                  'registrationid',
+                  'insurance_company',
+                  'surname',
+                  'othername',
+                  'gender',
+                  'dob',
+                  'phone_number',
+                  'vehicle_number',
+                  'vehicle_model',
+                  'vehicle_make',
+                  'vehicle_color',
+                  'vehicle_fuel_type',
+                  'vehicle_mileage',
+                  'vehicle_registered_date',
+                  'vehicle_type',
+                  'vehicle_no_seat',
+                  'vehicle_no_doors',
+                  'vehicle_transmission',
+                  'vehicle_engine_type',
+                  'vehicle_identification_number',
+                  'record_of_past_ownership',
+                  'vehicle_chassis_number',
+                  'use_of_vehicle',
+                  'cover_type',
+                  'inception_date',
+                  'expiring_date'
+
+        ));
 
 
 
