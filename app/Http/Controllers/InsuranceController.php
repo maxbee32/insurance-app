@@ -21,7 +21,7 @@ class InsuranceController extends Controller
      }
 
     public function __construct(){
-        $this->middleware('auth:api',['except'=>['captureInsurance','searchInsurer','caputureVihecleDefects']]);
+        $this->middleware('auth:sanctum',['except'=>['captureInsurance','searchInsurer','caputureVihecleDefects']]);
     }
     //
        public function captureInsurance(Request $request){
