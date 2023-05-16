@@ -71,7 +71,7 @@ class InsuranceController extends Controller
             $validator-> validated()));
 
         $token = $insurance->createToken('token')->plainTextToken;
-    
+
 
         return $this ->sendResponse([
             'success' => true,
@@ -89,7 +89,7 @@ class InsuranceController extends Controller
         $result = Insurance::where('surname', 'LIKE', '%'. $name . '%')
         ->orWhere('othername','LIKE','%'.$name.'%')
         ->orWhere('vehicle_number','LIKE','%'.$name.'%')
-        ->get(array('registrationId','surname','othername',
+        ->get(array('registrationid','surname','othername',
         'vehicle_number','expiring_date','vehicle_chassis_number','vehicle_model'));
 
 
