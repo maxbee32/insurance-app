@@ -43,7 +43,6 @@ Route::group(['middleware'=>'api',
      Route::post("register-insurance","App\Http\Controllers\UserController@saveInsurance");
 
 
-     Route::post("register-insurer","App\Http\Controllers\InsuranceController@captureInsurance");
 
      Route::post("register-defects","App\Http\Controllers\InsuranceController@caputureVihecleDefects");
 
@@ -53,4 +52,10 @@ Route::group(['middleware'=>'api',
  });
 
 
+ Route::group(['middleware'=>['auth:sanctum'],
+              'prefix'=>'user/v1'
+],function($router){
 
+    Route::post("register-insurer","App\Http\Controllers\InsuranceController@captureInsurance");
+
+});
