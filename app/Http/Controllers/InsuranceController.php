@@ -64,15 +64,14 @@ class InsuranceController extends Controller
             ], 400);
         }
 
-        $Id =IdGenerator::generate(['table'=>'insurances','field'=>'registrationId','length'=>10,'prefix'=>'RGHA-']);
+        $Id =IdGenerator::generate(['table'=>'insurances','field'=>'registrationid','length'=>10,'prefix'=>'RGHA-']);
 
-    //    $insurance =
-       Insurance::create(array_merge(
-            ['registrationId'=>$Id],
+      $insurance = Insurance::create(array_merge(
+            ['registrationid'=>$Id],
             $validator-> validated()));
 
-        // $token = $insurance->createToken('token')->plainTextToken;
-
+        $token = $insurance->createToken('token')->plainTextToken;
+    echo($insurance);
 
         return $this ->sendResponse([
             'success' => true,
