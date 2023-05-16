@@ -23,7 +23,7 @@ class UserController extends Controller
      }
 
     public function __construct(){
-        $this->middleware('auth:api', ['except'=>['managerLogin', 'saveInsurance']]);
+        $this->middleware('auth:api', ['except'=>['managerLogin']]);
     }
 
     public function managerLogin(Request $request){
@@ -67,63 +67,63 @@ class UserController extends Controller
     }
 
 
-    public function saveInsurance(Request $request){
-        $validator = Validator::make($request->all(),[
-           'insurance_company'=> ['required','string'],
-           'surname' => ['required','string'],
-           'othername' => ['required','string'],
-           'gender'=>['required','string'],
-           'dob'=>['required','date'],
-           'vehicle_model'=>['required','string'],
-           'vehicle_make'=>['required','string'],
-           'vehicle_color'=>['required','string'],
-           'vehicle_fuel_type'=>['required','string'],
-           'vehicle_mileage'=>['required','string'],
-           'vehicle_registered_date'=>['required','date'],
-           'vehicle_no_seat'=>['required','numeric'],
-           'vehicle_no_doors'=>['required','numeric'],
-           'vehicle_transmission'=>['required','string'],
-           'vehicle_engine_type'=>['required','string'],
-           'vehicle_identification_number'=>['nullable','string'],
-           'record_of_past_ownership'=>['required','string'],
-           'vehicle_chassis_number'=>['required','string'],
-           'phone_number'=>['required','regex:/^(\+\d{1,3}[- ]?)?\d{10}$/','min:10'],
-           'vehicle_number' => ['required','string'],
-           'vehicle_type' => ['required','string'],
-           'use_of_vehicle' => ['required','string'],
-           'cover_type' => ['required','string'],
-           'inception_date' => ['required','date'],
-           'expiring_date' => ['required','date']
+    // public function saveInsurance(Request $request){
+    //     $validator = Validator::make($request->all(),[
+    //        'insurance_company'=> ['required','string'],
+    //        'surname' => ['required','string'],
+    //        'othername' => ['required','string'],
+    //        'gender'=>['required','string'],
+    //        'dob'=>['required','date'],
+    //        'vehicle_model'=>['required','string'],
+    //        'vehicle_make'=>['required','string'],
+    //        'vehicle_color'=>['required','string'],
+    //        'vehicle_fuel_type'=>['required','string'],
+    //        'vehicle_mileage'=>['required','string'],
+    //        'vehicle_registered_date'=>['required','date'],
+    //        'vehicle_no_seat'=>['required','numeric'],
+    //        'vehicle_no_doors'=>['required','numeric'],
+    //        'vehicle_transmission'=>['required','string'],
+    //        'vehicle_engine_type'=>['required','string'],
+    //        'vehicle_identification_number'=>['nullable','string'],
+    //        'record_of_past_ownership'=>['required','string'],
+    //        'vehicle_chassis_number'=>['required','string'],
+    //        'phone_number'=>['required','regex:/^(\+\d{1,3}[- ]?)?\d{10}$/','min:10'],
+    //        'vehicle_number' => ['required','string'],
+    //        'vehicle_type' => ['required','string'],
+    //        'use_of_vehicle' => ['required','string'],
+    //        'cover_type' => ['required','string'],
+    //        'inception_date' => ['required','date'],
+    //        'expiring_date' => ['required','date']
 
 
 
-       ]);
+    //    ]);
 
-       if($validator->stopOnFirstFailure()->fails()){
-           return $this->sendResponse([
-               'success' => false,
-               'data'=> $validator->errors(),
-               'message' => 'Validation Error'
-           ], 400);
-       }
+    //    if($validator->stopOnFirstFailure()->fails()){
+    //        return $this->sendResponse([
+    //            'success' => false,
+    //            'data'=> $validator->errors(),
+    //            'message' => 'Validation Error'
+    //        ], 400);
+    //    }
 
-       $Id =IdGenerator::generate(['table'=>'insurances','field'=>'registrationId','length'=>10,'prefix'=>'RGHA-']);
+    //    $Id =IdGenerator::generate(['table'=>'insurances','field'=>'registrationId','length'=>10,'prefix'=>'RGHA-']);
 
-    //   $insurance =
-      Insurance::create(array_merge(
-           ['registrationId'=>$Id],
-           $validator-> validated()
-        ));
-    //    $token = $insurance->createToken('token')->plainTextToken;
+    // //   $insurance =
+    //   Insurance::create(array_merge(
+    //        ['registrationId'=>$Id],
+    //        $validator-> validated()
+    //     ));
+    // //    $token = $insurance->createToken('token')->plainTextToken;
 
-       return $this ->sendResponse([
-           'success' => true,
-        //    'access_token' =>$token,
-        //    'token_type'=>'bearer',
-            'message' =>'Insurer registered successfully.'
+    //    return $this ->sendResponse([
+    //        'success' => true,
+    //     //    'access_token' =>$token,
+    //     //    'token_type'=>'bearer',
+    //         'message' =>'Insurer registered successfully.'
 
-          ],200);
-    }
+    //       ],200);
+    // }
 
 
 }

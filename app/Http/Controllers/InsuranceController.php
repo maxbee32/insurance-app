@@ -89,8 +89,7 @@ class InsuranceController extends Controller
         $result = Insurance::where('surname', 'LIKE', '%'. $name . '%')
         ->orWhere('othername','LIKE','%'.$name.'%')
         ->orWhere('vehicle_number','LIKE','%'.$name.'%')
-        ->get(array('registrationid','surname','othername',
-        'vehicle_number','expiring_date','vehicle_chassis_number','vehicle_model'));
+        ->get();
 
 
 
