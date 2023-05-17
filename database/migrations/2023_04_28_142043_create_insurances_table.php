@@ -27,7 +27,7 @@ return new class extends Migration
             // $table->string('vehicle_fuel_type');
             // $table->string('vehicle_mileage');
             // $table->date('vehicle_registered_date');
-             $table->string('vehicle_type');
+            //  $table->string('vehicle_type');
             // $table->string('vehicle_no_seat');
             // $table->string('vehicle_no_doors');
             // $table->string('vehicle_transmission');
