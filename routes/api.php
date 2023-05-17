@@ -40,7 +40,7 @@ Route::group(['middleware'=>'api',
 
      Route::post("manager-login","App\Http\Controllers\UserController@managerLogin");
 
-     Route::post("register-insurance","App\Http\Controllers\UserController@saveInsurance");
+     Route::post("register-insurer","App\Http\Controllers\InsuranceController@captureInsurance");
 
      Route::post("register-defects","App\Http\Controllers\InsuranceController@caputureVihecleDefects");
 
@@ -50,10 +50,3 @@ Route::group(['middleware'=>'api',
  });
 
 
- Route::group(['middleware'=>'api',
-              'prefix'=>'user/v1'
-],function($router){
-
-    Route::post("register-insurer","App\Http\Controllers\InsuranceController@captureInsurance");
-
-});
