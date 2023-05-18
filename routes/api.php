@@ -42,6 +42,8 @@ Route::group(['middleware'=>'api',
 
      Route::post("register-insurer","App\Http\Controllers\InsuranceController@captureInsurance");
 
+     Route::post("update-insurer/{id}","App\Http\Controllers\InsuranceController@updateInsurance");
+
      Route::post("register-defects","App\Http\Controllers\InsuranceController@caputureVihecleDefects");
 
      Route::post("search","App\Http\Controllers\InsuranceController@searchInsurer");

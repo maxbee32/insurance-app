@@ -22,32 +22,17 @@ class InsuranceController extends Controller
      }
 
     public function __construct(){
-        $this->middleware('auth:api',['except'=>['captureInsurance','searchInsurer','caputureVihecleDefects']]);
+        $this->middleware('auth:api',['except'=>['captureInsurance','updateInsurance','searchInsurer','caputureVihecleDefects']]);
     }
     //
        public function captureInsurance(Request $request){
          $validator = Validator::make($request->all(),[
             'insurance_company'=> ['required','string'],
-            // 'surname' => ['required','string'],
             'name_of_insurer' => ['required','string'],
-            // 'gender'=>['required','string'],
-            // 'dob'=>['required'],
-            // 'vehicle_model'=>['required','string'],
             'vehicle_make'=>['required','string'],
-            // 'vehicle_color'=>['required','string'],
-            // 'vehicle_fuel_type'=>['required','string'],
-            // 'vehicle_mileage'=>['required','string'],
-            // 'vehicle_registered_date'=>['required'],
-            // 'vehicle_no_seat'=>['required'],
-            // 'vehicle_no_doors'=>['required'],
-            // 'vehicle_transmission'=>['required'],
-            // 'vehicle_engine_type'=>['required'],
-            // 'vehicle_identification_number'=>['nullable','string'],
-            // 'record_of_past_ownership'=>['required','string'],
             'vehicle_chassis_number'=>['required','string'],
             'phone_number'=>['required'],
             'vehicle_number' => ['required','string'],
-            // 'vehicle_type' => ['required','string'],
             'use_of_vehicle' => ['required','string'],
             'cover_type' => ['required','string'],
             'inception_date' => ['required'],
@@ -84,7 +69,51 @@ class InsuranceController extends Controller
            ],200);
      }
 
+     public function updateInsurance(Request $request, $id){
+        $validator = Validator::make($request->all(), [
+            'insurance_company' => ['required','string'],
+            'name_of_insurer' => ['required','string'],
+            'vehicle_make'=>['required','string'],
+            'vehicle_chassis_number'=>['required','string'],
+             'phone_number'=>['required'],
+            'vehicle_number' => ['required','string'],
+            'use_of_vehicle' => ['required','string'],
+            'cover_type' => ['required','string'],
+            'inception_date' => ['required','date'],
+            'expiring_date' => ['required','date'],
+            'premium' => ['required']
+        ]);
 
+        if($validator->stopOnFirstFailure()->fails()){
+            return $this->sendResponse([
+                'success' => false,
+                'data'=> $validator->errors(),
+                'message' => 'Validation Error'
+            ], 400);
+}
+
+         DB::table('insurances')
+        ->where('id', $id)
+        ->update(['insurance_company' => $request->insurance_company,
+                  'name_of_insurer'=> $request->name_of_insurer,
+                  'vehicle_make'=> $request->vehicle_make,
+                  'vehicle_chassis_number'=>$request->vehicle_chassis_number,
+                  'phone_number'=>$request->phone_number,
+                  'vehicle_number'=>$request->vehicle_number,
+                  'use_of_vehicle'=>$request->use_of_vehicle,
+                  'cover_type'=>$request->cover_type,
+                  'inception_date' => $request->inception_date,
+                  'expiring_date' => $request->expiring_date,
+                  'premium' => $request->premium
+
+                ]);
+
+                return $this ->sendResponse([
+                    'success' => true,
+                      'message' => 'Insurer info updated successfully.',
+
+                   ],200);
+     }
 
 
      public function searchInsurer(){
@@ -93,24 +122,9 @@ class InsuranceController extends Controller
                   'registrationid',
                   'insurance_company',
                   'name_of_insurer',
-                //   'othername',
-                //   'gender',
-                //   'dob',
                   'phone_number',
                   'vehicle_number',
-                //   'vehicle_model',
                   'vehicle_make',
-                //   'vehicle_color',
-                //   'vehicle_fuel_type',
-                //   'vehicle_mileage',
-                //   'vehicle_registered_date',
-                //   'vehicle_type',
-                //   'vehicle_no_seat',
-                //   'vehicle_no_doors',
-                //   'vehicle_transmission',
-                //   'vehicle_engine_type',
-                //   'vehicle_identification_number',
-                //   'record_of_past_ownership',
                   'vehicle_chassis_number',
                   'use_of_vehicle',
                   'cover_type',
@@ -119,26 +133,18 @@ class InsuranceController extends Controller
                   'premium'
 
         ));
+        return $this ->sendResponse([
+            'success' => true,
+             'message' => $result,
 
+           ],200);
 
-
-        if (count($result)){
-            return $this ->sendResponse([
-                'success' => true,
-                'data'=>$result,
-                 'message' =>'Insurer found.'
-
-               ],200);
-        }
-        else {
-            return $this ->sendResponse([
-                'success' => false,
-                 'message' =>'No Data found.'
-
-               ],200);
-        }
 
      }
+
+
+
+
 
 
 
