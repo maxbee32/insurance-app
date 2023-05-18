@@ -28,7 +28,8 @@ class InsuranceController extends Controller
        public function captureInsurance(Request $request){
          $validator = Validator::make($request->all(),[
             'insurance_company'=> ['required','string'],
-            'name_of_insurer' => ['required','string'],
+            'surname' => ['required','string'],
+            'othername' => ['required','string'],
             'vehicle_make'=>['required','string'],
             'vehicle_chassis_number'=>['required','string'],
             'phone_number'=>['required'],
@@ -72,7 +73,8 @@ class InsuranceController extends Controller
      public function updateInsurance(Request $request, $id){
         $validator = Validator::make($request->all(), [
             'insurance_company' => ['required','string'],
-            'name_of_insurer' => ['required','string'],
+            'surname' => ['required','string'],
+            'othername' => ['required','string'],
             'vehicle_make'=>['required','string'],
             'vehicle_chassis_number'=>['required','string'],
              'phone_number'=>['required'],
@@ -95,7 +97,8 @@ class InsuranceController extends Controller
          DB::table('insurances')
         ->where('id', $id)
         ->update(['insurance_company' => $request->insurance_company,
-                  'name_of_insurer'=> $request->name_of_insurer,
+                  'surname'=> $request->surname,
+                  'othername'=>$request->othername,
                   'vehicle_make'=> $request->vehicle_make,
                   'vehicle_chassis_number'=>$request->vehicle_chassis_number,
                   'phone_number'=>$request->phone_number,

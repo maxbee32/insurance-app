@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('registrationid');
             $table->string('insurance_company');
-            $table->string('name_of_insurer');
+            $table->string('surname');
+            $table->string('othername');
             $table->string('phone_number');
             $table->string('vehicle_number');
             $table->string('vehicle_make');
