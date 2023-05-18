@@ -124,7 +124,8 @@ class InsuranceController extends Controller
         ->get(array(
                   'registrationid',
                   'insurance_company',
-                  'name_of_insurer',
+                  'surname',
+                  'othername',
                   'phone_number',
                   'vehicle_number',
                   'vehicle_make',
