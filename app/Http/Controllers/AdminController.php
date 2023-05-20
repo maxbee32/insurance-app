@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Admin;
+use App\Models\Defect;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules\Password;
 
@@ -19,7 +21,7 @@ class AdminController extends Controller
      }
 
     public function __construct(){
-        $this->middleware('auth:api', ['except'=>['adminSignUp','adminLogin','userSignUp']]);
+        $this->middleware('auth:api', ['except'=>['adminSignUp','adminLogin','userSignUp','selectInsurer', 'createNewDefects']]);
     }
 
 
@@ -97,8 +99,6 @@ public function adminLogin(Request $request){
 
   //register  users
     public function userSignUp(Request $request){
-
-
         $validator = Validator::make($request->all(), [
 
             'email' => ['required','email','unique:users'],
@@ -146,6 +146,61 @@ public function adminLogin(Request $request){
 
 
 }
+// get all insurers
+public function selectInsurer(){
+    $result = DB::table('insurances')
+    ->orderBy("insurances.created_at", 'desc')
+    ->get(array(
+              'id',
+              'registrationid',
+              'insurance_company',
+              'surname',
+              'othername',
+              'phone_number',
+              'vehicle_number',
+              'vehicle_make',
+              'vehicle_chassis_number',
+              'use_of_vehicle',
+              'cover_type',
+              'inception_date',
+              'expiring_date',
+              'premium'
+
+    ));
+    return $this ->sendResponse([
+        'success' => true,
+         'message' => $result,
+
+       ],200);
+
+
+ }
+
+ public function createNewDefects(Request $request){
+    $validator = Validator::make($request->all(), [
+
+        'defect' => ['required','string','unique:defects']
+    ]);
+
+    if($validator->stopOnFirstFailure()-> fails()){
+        return $this->sendResponse([
+            'success' => false,
+            'data'=> $validator->errors(),
+            'message' => 'Validation Error'
+        ], 400);
+    }
+
+
+    Defect::create(array_merge(
+        $validator-> validated(),
+    ));
+
+    return $this ->sendResponse([
+        'success' => true,
+         'message' =>'New vehicle defect added successfully.'
+
+       ],200);
+ }
 
 
 

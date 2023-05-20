@@ -11,14 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('vehicle_defect_tables', function (Blueprint $table) {
+        Schema::create('defects', function (Blueprint $table) {
             $table->id();
-            $table->string('vehicle_registration_number');
-            $table->string('vehicle_make');
-            $table->string('contact_number');
-            $table->string('vehicle_number');
-            $table->string('vehicle_type');
-            $table->string('use_of_vehicle');
+            $table->string('defect');
             $table->timestamps();
         });
     }
@@ -28,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('vehicle_defect_tables');
+        Schema::dropIfExists('defects');
     }
 };

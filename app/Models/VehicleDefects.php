@@ -9,18 +9,17 @@ class VehicleDefects extends Model
 {
     use HasFactory;
 
-    protected $fillable= [
-        'vehicle_registration_number',
-        'vehicle_make',
-        'contact_number',
-        'vehicle_number',
-        'vehicle_type',
-        'use_of_vehicle',
-    ];
+    protected $guarded= [];
+    //     'vehicle_defects',
+    //     'number',
+    //     'remarks'
+    // ];
 
 
     public function user()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo(RoadWorth::class,'r_id');
     }
 }
+
+

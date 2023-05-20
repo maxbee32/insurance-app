@@ -29,6 +29,10 @@ Route::group(['middleware'=>'api',
 
     Route::post("user-signup","App\Http\Controllers\AdminController@userSignUp");
 
+    Route::post("select-insurer","App\Http\Controllers\AdminController@selectInsurer");
+
+    Route::post("add-defect","App\Http\Controllers\AdminController@createNewDefects");
+
 
 });
 
@@ -44,9 +48,11 @@ Route::group(['middleware'=>'api',
 
      Route::post("update-insurer/{id}","App\Http\Controllers\InsuranceController@updateInsurance");
 
-     Route::post("register-defects","App\Http\Controllers\InsuranceController@caputureVihecleDefects");
-
      Route::post("search","App\Http\Controllers\InsuranceController@searchInsurer");
+
+     Route::post("register-roadworth","App\Http\Controllers\RoadWorthController@captureRoadWorth");
+
+     Route::post("register-defects","App\Http\Controllers\RoadWorthController@caputureVihecleDefects");
 
 
  });
