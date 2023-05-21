@@ -44,6 +44,17 @@ Route::group(['middleware'=>'api',
     Route::post("count-defect","App\Http\Controllers\AdminController@countDefect");
 
 
+    Route::post("count-insurer-seven","App\Http\Controllers\AdminController@countInsurer7");
+
+    Route::post("count-roadworth-seven","App\Http\Controllers\AdminController@countRoadWorth7");
+
+    Route::post("count-defect-seven","App\Http\Controllers\AdminController@countDefect7");
+
+    Route::post("delete-user/{id}","App\Http\Controllers\AdminController@deleteUser");
+
+    Route::post("all-managers","App\Http\Controllers\AdminController@getAllManagers");
+
+
 });
 
 

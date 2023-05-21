@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Admin;
 use App\Models\Defect;
@@ -22,7 +24,8 @@ class AdminController extends Controller
 
     public function __construct(){
         $this->middleware('auth:api', ['except'=>['adminSignUp','adminLogin','userSignUp','selectInsurer', 'createNewDefects',
-        'selectRoadWorth','selectDefect','countInsurer','countRoadWorth','countDefect']]);
+        'selectRoadWorth','selectDefect','countInsurer','countRoadWorth','countDefect','countDefect7','countInsurer7',
+        'countRoadWorth7','deleteUser','getAllManagers']]);
     }
 
 
@@ -261,7 +264,7 @@ public function selectInsurer(){
 
  //get the number of defect
  public function countDefect(){
-    $count =DB::table('road_worths')
+    $count =DB::table('vehicle_defects')
     ->select(DB::raw('count(id) As defects' ))
       ->get();
 
@@ -273,6 +276,108 @@ public function selectInsurer(){
        ],200);
 
  }
+
+
+  //get the number of insurer for seven days
+  public function countInsurer7(){
+    $date = \Carbon\Carbon::today()->subDays(7);
+    $date1 = Carbon::today();
+    $count =DB::table('insurances')
+    -> whereBetween(DB::raw('DATE(insurances.created_at)'),[$date, $date1 ])
+    ->select(DB::raw('count(registrationid) As insurer' ))
+      ->get();
+
+
+     return $this ->sendResponse([
+        'success' => true,
+         'message' => $count,
+
+       ],200);
+
+ }
+
+
+ //get the number of road worth for seven days
+ public function countRoadWorth7(){
+    $date = \Carbon\Carbon::today()->subDays(7);
+    $date1 = Carbon::today();
+    $count =DB::table('road_worths')
+    -> whereBetween(DB::raw('DATE(road_worths.created_at)'),[$date, $date1 ])
+    ->select(DB::raw('count(roadworth_id) As roadworth' ))
+      ->get();
+
+
+     return $this ->sendResponse([
+        'success' => true,
+         'message' => $count,
+
+       ],200);
+
+ }
+
+ //get the number of defect for seven days
+ public function countDefect7(){
+    $date = \Carbon\Carbon::today()->subDays(7);
+    $date1 = Carbon::today();
+    $count =DB::table('vehicle_defects')
+    -> whereBetween(DB::raw('DATE(vehicle_defects.created_at)'),[$date, $date1 ])
+    ->select(DB::raw('count(id) As defects' ))
+      ->get();
+
+
+     return $this ->sendResponse([
+        'success' => true,
+         'message' => $count,
+
+       ],200);
+
+ }
+
+ public function getAllManagers(){
+    $res= DB::table('users')
+    ->orderBy("users.created_at", 'desc')
+    ->get(array(
+        'id',
+        'email'
+    ));
+    return $this ->sendResponse([
+        'success' => true,
+         'message' => $res,
+
+       ],200);
+
+
+ }
+
+ public function deleteUser($id){
+    $user = User::find($id);
+    if (is_null($user)){
+       return $this ->sendResponse([
+           'success' => true,
+            'message' => 'Manager not found.'
+
+          ],200);
+      }
+
+      else {
+        DB::beginTransaction();
+        try{
+           $user->delete();
+           DB::commit();
+           return $this ->sendResponse([
+               'success' => true,
+                'message' => 'Account has been permanently removed from the system.'
+
+              ],200);
+        } catch(Exception $err){
+           DB::rollBack();
+        }
+
+
+   }
+}
+
+
 
  public function createNewDefects(Request $request){
     $validator = Validator::make($request->all(), [
