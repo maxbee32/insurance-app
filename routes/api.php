@@ -33,6 +33,16 @@ Route::group(['middleware'=>'api',
 
     Route::post("add-defect","App\Http\Controllers\AdminController@createNewDefects");
 
+    Route::post("select-roadworth","App\Http\Controllers\AdminController@selectRoadWorth");
+
+    Route::post("select-defect","App\Http\Controllers\AdminController@selectDefect");
+
+    Route::post("count-insurer","App\Http\Controllers\AdminController@countInsurer");
+
+    Route::post("count-roadworth","App\Http\Controllers\AdminController@countRoadWorth");
+
+    Route::post("count-defect","App\Http\Controllers\AdminController@countDefect");
+
 
 });
 

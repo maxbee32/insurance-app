@@ -21,7 +21,8 @@ class AdminController extends Controller
      }
 
     public function __construct(){
-        $this->middleware('auth:api', ['except'=>['adminSignUp','adminLogin','userSignUp','selectInsurer', 'createNewDefects']]);
+        $this->middleware('auth:api', ['except'=>['adminSignUp','adminLogin','userSignUp','selectInsurer', 'createNewDefects',
+        'selectRoadWorth','selectDefect','countInsurer','countRoadWorth','countDefect']]);
     }
 
 
@@ -173,6 +174,103 @@ public function selectInsurer(){
 
        ],200);
 
+
+ }
+
+ //get all roadworth
+
+ public function selectRoadWorth(){
+    $res = DB::table('road_worths')
+    ->orderBy('road_worths.created_at', 'desc')
+    ->get(array(
+        'id',
+        'roadworth_id',
+        'vehicle_registration_number',
+        'owner_surname',
+        'owner_othername',
+        'phone_number',
+        'vehicle_cc',
+        'vehicle_make',
+        'use_of_vehicle',
+        'date_of_inspection',
+        'next_inspection_date',
+        'amount'
+    ));
+
+    return $this ->sendResponse([
+        'success' => true,
+         'message' => $res,
+
+       ],200);
+ }
+
+
+ //get all defect
+ public function selectDefect(){
+    $result1 = DB::table('vehicle_defects')
+    ->join('road_worths','road_worths.id', '=' ,'vehicle_defects.r_id')
+    ->orderBy('vehicle_defects.created_at','desc')
+    ->get(array(
+        'vehicle_defects.id',
+        'vehicle_registration_number',
+        'vehicle_defects',
+        'number',
+        'remarks'
+    ));
+
+    return $this ->sendResponse([
+        'success' => true,
+         'message' => $result1,
+
+       ],200);
+ }
+
+
+ //get the number of insurer
+ public function countInsurer(){
+    $count =DB::table('insurances')
+    ->select(DB::raw('count(registrationid) As insurer' ))
+      ->get();
+
+
+     return $this ->sendResponse([
+        'success' => true,
+         'message' => $count,
+
+       ],200);
+
+ }
+
+
+ //get the number of roadworth
+ public function countRoadWorth(){
+    $count =DB::table('road_worths')
+    ->select(DB::raw('count(roadworth_id) As roadworth' ))
+      ->get();
+
+
+     return $this ->sendResponse([
+        'success' => true,
+         'message' => $count,
+
+       ],200);
+
+ }
+
+
+
+ //get the number of defect
+ public function countDefect(){
+    $count =DB::table('road_worths')
+    ->select(DB::raw('count(id) As defects' ))
+      ->get();
+
+
+     return $this ->sendResponse([
+        'success' => true,
+         'message' => $count,
+
+       ],200);
 
  }
 
