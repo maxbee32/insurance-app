@@ -48,7 +48,7 @@ class TwilioSMSController extends Controller
     $url = $endPoint . '?key=' . $apiKey;
 
     $data = [
-        'recipient' => 0242617934,
+        'recipient' => '0242617934',
         'sender' => 'Gglsms',
         'message' => 'Hello, your insurance is about to expire. Please try and renew your insurance package. Thank you.',
         'is_schedule' => 'false',
