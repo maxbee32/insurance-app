@@ -35,12 +35,15 @@ class SendSms extends Command
         /*We loop through date to get all expiry within the next 3 month */
         foreach($saveEndDate as $key=> $saveEndDate){
 
-          $date = Carbon::parse($saveEndDate)->subMonth(3);
+            $date = Carbon::parse($saveEndDate)->subMonth(3);
 
-          $result1 = DB::table('insurances')
-          ->where(DB::raw('DATE(expiring_date)',''),[$date])
-          ->select(array('phone_number'))
-          ->pluck('phone_number');
+            if( $date > Carbon::now()){
+
+            $result1 = DB::table('insurances')
+            ->whereDate('expiring_date','>=',[$date])
+            ->select(array('phone_number'))
+            ->pluck('phone_number');
+            }
 
 
         /*Integrate Mnotify api to send sms to all users whose insurance is about to expire*/
