@@ -40,7 +40,8 @@ class TwilioSMSController extends Controller
       ->where(DB::raw('DATE(expiring_date)',''),[$date])
       ->select(array('phone_number'))
       ->pluck('phone_number');
-echo ($result1);
+       echo ($result1);
+       echo($date);
 
     /*Integrate Mnotify api to send sms to all users whose insurance is about to expire*/
 //     $endPoint = 'https://api.mnotify.com/api/sms/quick';
