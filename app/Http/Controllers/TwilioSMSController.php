@@ -43,8 +43,6 @@ class TwilioSMSController extends Controller
       ->select(array('phone_number'))
       ->pluck('phone_number');
 
-      //echo($date);
-    //   echo($result1);
 
 
     /*Integrate Mnotify api to send sms to all users whose insurance is about to expire*/

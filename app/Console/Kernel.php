@@ -15,7 +15,7 @@ class Kernel extends ConsoleKernel
     ];
     protected function schedule(Schedule $schedule)
     {
-         $schedule->command('sendsms:cron')->everyMinute();
+         $schedule->command('sendsms:cron')->monthlyOn(30,'8:00');
     }
 
     /**
