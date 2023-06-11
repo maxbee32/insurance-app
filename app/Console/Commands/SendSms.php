@@ -43,7 +43,7 @@ class SendSms extends Command
             ->whereDate('expiring_date','>=',[$date])
             ->select(array('phone_number'))
             ->pluck('phone_number');
-            }
+
 
 
         /*Integrate Mnotify api to send sms to all users whose insurance is about to expire*/
@@ -79,6 +79,6 @@ class SendSms extends Command
 
        }
 
-
+    }
     }
 }

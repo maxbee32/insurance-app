@@ -45,7 +45,6 @@ class TwilioSMSController extends Controller
 
       //echo($date);
     //   echo($result1);
-      }
 
 
     /*Integrate Mnotify api to send sms to all users whose insurance is about to expire*/
@@ -79,6 +78,7 @@ class TwilioSMSController extends Controller
              'message' => $result,
 
            ],200);
+        }
 
   }
 
