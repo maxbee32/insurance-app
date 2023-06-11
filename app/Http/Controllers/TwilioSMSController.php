@@ -34,15 +34,19 @@ class TwilioSMSController extends Controller
     /*We loop through date to get all expiry within the next 3 month */
     foreach($saveEndDate as $key=> $saveEndDate){
 
-
-
       $date = Carbon::parse($saveEndDate)->subMonth(3);
 
+      if( $date > Carbon::now()){
+
       $result1 = DB::table('insurances')
-      ->where(DB::raw('DATE(expiring_date)',''),[$date])
+      ->whereDate('expiring_date','>=',[$date])
       ->select(array('phone_number'))
       ->pluck('phone_number');
+
+      //echo($date);
       echo($result1);
+      }
+
 
     // /*Integrate Mnotify api to send sms to all users whose insurance is about to expire*/
 //     $endPoint = 'https://api.mnotify.com/api/sms/quick';
