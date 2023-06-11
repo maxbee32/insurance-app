@@ -38,42 +38,41 @@ class TwilioSMSController extends Controller
 
       $result1 = DB::table('insurances')
       ->where(DB::raw('DATE(expiring_date)',''),[$date])
-      ->select(array('phone_number','expiring_date'))
-      ->pluck('phone_number','expiring_date');
-       echo ($result1);
-    //    echo($date);
+      ->select(array('phone_number'))
+      ->pluck('phone_number');
+
 
     /*Integrate Mnotify api to send sms to all users whose insurance is about to expire*/
-//     $endPoint = 'https://api.mnotify.com/api/sms/quick';
-//     $apiKey = 'm36tB83trsrUqa1VerKbXa3Dy';
-//     $url = $endPoint . '?key=' . $apiKey;
+    $endPoint = 'https://api.mnotify.com/api/sms/quick';
+    $apiKey = 'm36tB83trsrUqa1VerKbXa3Dy';
+    $url = $endPoint . '?key=' . $apiKey;
 
-//     $data = [
-//         'recipient' => $result1,
-//         'sender' => 'Gglsms',
-//         'message' => 'Hello, your insurance is about to expire. Please try and renew your insurance package. Thank you.',
-//         'is_schedule' => 'false',
-//         'schedule_date' => ''
-//       ];
+    $data = [
+        'recipient' => $result1,
+        'sender' => 'Gglsms',
+        'message' => 'Hello, your insurance is about to expire. Please try and renew your insurance package. Thank you.',
+        'is_schedule' => 'false',
+        'schedule_date' => ''
+      ];
 
-//       $ch = curl_init();
-//       $headers = array();
-//       $headers[] = "Content-Type: application/json";
-//       curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-//       curl_setopt($ch, CURLOPT_URL, $url);
-//       curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-//       curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-//       curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
-//       $result = curl_exec($ch);
-//       $result = json_decode($result, TRUE);
-//       curl_close($ch);
+      $ch = curl_init();
+      $headers = array();
+      $headers[] = "Content-Type: application/json";
+      curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+      curl_setopt($ch, CURLOPT_URL, $url);
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+      curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+      curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+      $result = curl_exec($ch);
+      $result = json_decode($result, TRUE);
+      curl_close($ch);
 
 
-//     return $this ->sendResponse([
-//             'success' => true,
-//              'message' => $result,
+    return $this ->sendResponse([
+            'success' => true,
+             'message' => $result,
 
-//            ],200);
+           ],200);
 
    }
 
