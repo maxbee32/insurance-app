@@ -67,7 +67,7 @@ class TwilioSMSController extends Controller
       $result = json_decode($result, TRUE);
       curl_close($ch);
 
-      echo($result1);
+     
     return $this ->sendResponse([
             'success' => true,
              'message' => $result,
