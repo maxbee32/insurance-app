@@ -48,7 +48,7 @@ class TwilioSMSController extends Controller
     $url = $endPoint . '?key=' . $apiKey;
 
     $data = [
-        'recipient' => $result1,
+        'recipient' => 0242617934,
         'sender' => 'Gglsms',
         'message' => 'Hello, your insurance is about to expire. Please try and renew your insurance package. Thank you.',
         'is_schedule' => 'false',
@@ -67,7 +67,7 @@ class TwilioSMSController extends Controller
       $result = json_decode($result, TRUE);
       curl_close($ch);
 
-     
+
     return $this ->sendResponse([
             'success' => true,
              'message' => $result,
