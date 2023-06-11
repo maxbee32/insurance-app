@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,7 +55,7 @@ Route::group(['middleware'=>'api',
 
     Route::post("all-managers","App\Http\Controllers\AdminController@getAllManagers");
 
-
+    ROute::post("send-sms","App\Http\Controllers\TwilioSMSController@sendSMS");
 });
 
 
@@ -78,4 +79,7 @@ Route::group(['middleware'=>'api',
 
  });
 
+ Route::post('send',function(){
+    return Artisan::call('sendsms:cron');
+});
 

@@ -76,7 +76,7 @@ class InsuranceController extends Controller
             'othername' => ['required','string'],
             'vehicle_make'=>['required','string'],
             'vehicle_chassis_number'=>['required','string'],
-             'phone_number'=>['required','regex:/^(\+\d{1,3}[- ]?)?\d{10}$/','min:10'],
+            'phone_number'=>['required','regex:/^(\+\d{1,3}[- ]?)?\d{10}$/','min:10'],
             'vehicle_number' => ['required','string'],
             'use_of_vehicle' => ['required','string'],
             'cover_type' => ['required','string'],

@@ -11,6 +11,7 @@
         "laravel/framework": "^10.8",
         "laravel/sanctum": "^3.2",
         "laravel/tinker": "^2.8",
+        "twilio/sdk": "^7.4",
         "tymon/jwt-auth": "^2.0"
     },
     "require-dev": {
@@ -34,6 +35,7 @@
             "Tests\\": "tests/"
         }
     },
+    
     "scripts": {
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
@@ -63,6 +65,8 @@
             "php-http/discovery": true
         }
     },
+
+
     "minimum-stability": "stable",
     "prefer-stable": true
 }
